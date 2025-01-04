@@ -5,5 +5,7 @@
     'author': 'Pooria Madani',
     'category': 'Sales',
     'application': True,
-    'data': [],
+    'data': [
+        'security/ir.model.access.csv',
+    ],
 }
