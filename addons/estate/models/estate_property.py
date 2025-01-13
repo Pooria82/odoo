@@ -1,5 +1,6 @@
 from odoo import api, fields, models
 from dateutil.relativedelta import relativedelta
+from odoo.exceptions import UserError
 
 
 class EstateProperty(models.Model):
@@ -56,6 +57,18 @@ class EstateProperty(models.Model):
         default='new',
         copy=False
     )
+
+    def action_sold(self):
+        for record in self:
+            if record.state == 'canceled':
+                raise UserError("Canceled properties cannot be sold.")
+            record.state = 'sold'
+
+    def action_cancel(self):
+        for record in self:
+            if record.state == 'sold':
+                raise UserError("Cancelled properties cannot be sold.")
+            record.state = 'canceled'
 
     # Many2one fields
     property_type_id = fields.Many2one('estate.property.type', string='Property Type')
