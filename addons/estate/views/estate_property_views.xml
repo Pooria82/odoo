@@ -72,9 +72,11 @@
 
                         <page string="Offers">
                             <field name="offer_ids">
-                                <list editable="bottom">
+                                <list>
                                     <field name="price" width="150"/>
                                     <field name="partner_id" width="150"/>
+                                    <field name="validity" width="150"/>
+                                    <field name="date_deadline" width="150"/>
                                     <field name="status" width="150"/>
                                 </list>
                             </field>
@@ -117,7 +119,6 @@
                             context="{'group_by':'property_type_id'}"/>
                     <filter string="Tags" name="group_by_tags"
                             context="{'group_by':'tag_ids'}"/>
-
                 </group>
             </search>
         </field>

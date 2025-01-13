@@ -19,6 +19,7 @@ class EstateProperty(models.Model):
     bedrooms = fields.Integer(string='Bedrooms', default=2)
     living_area = fields.Integer(string='Living Area (sqm)')
     facades = fields.Integer(string='Facades')
+
     garage = fields.Boolean(string='Garage Available?')
     garden = fields.Boolean(string='Has a Garden?')
     garden_area = fields.Integer(string='Garden Area (sqm)')
@@ -31,6 +32,16 @@ class EstateProperty(models.Model):
         ],
         string="Garden Orientation"
     )
+
+    @api.onchange('garden')
+    def _onchange_garden(self):
+        if self.garden:
+            self.garden_area = 10
+            self.garden_orientation = 'north'
+        else:
+            self.garden_area = 0
+            self.garden_orientation = False
+
     active = fields.Boolean(string='Active', default=True)
     state = fields.Selection(
         selection=[
