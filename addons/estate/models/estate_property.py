@@ -7,6 +7,7 @@ from dateutil.relativedelta import relativedelta
 class EstateProperty(models.Model):
     _name = 'estate.property'
     _description = 'Real Estate Property'
+    _order = "id desc"
 
     name = fields.Char(string='Title', required=True)
     description = fields.Text(string='Description')
@@ -80,7 +81,9 @@ class EstateProperty(models.Model):
     tag_ids = fields.Many2many('estate.property.tag', string='Tags')
 
     # One2many fields
-    offer_ids = fields.One2many('estate.property.offer', 'property_id', string='Offers')
+    offer_ids = fields.One2many('estate.property.offer',
+                                'property_id',
+                                string='Offers')
 
     total_area = fields.Integer(string='Total Area (sqm)', compute='_compute_total_area')
 
